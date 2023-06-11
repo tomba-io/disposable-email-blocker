@@ -1,6 +1,6 @@
 {
   "name": "disposable-email-blocker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Detect and Block if new account registrations are using disposable email services with javascript.",
   "type": "module",
   "main": "disposable-email-blocker.min.js",
