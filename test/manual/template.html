@@ -1,90 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Manual testing</title>
-    <style>
-      body {
-        font: 1em sans-serif;
-        width: 200px;
-        padding: 0;
-        margin: 0 auto;
-      }
-
-      .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 15px;
-    }
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      margin: 0 -15px;
-    }
-
-    .row::after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-    
-    .col {
-      float: left;
-      box-sizing: border-box;
-      padding: 0 15px;
-    }
-    
-      p * {
-        display: block;
-      }
-      input[type=email]{
-        -webkit-appearance: none;
-        appearance: none;
-        width: 100%;
-        border: 1px solid #333;
-        margin: 0;
-        font-family: inherit;
-        font-size: 90%;
-        box-sizing: border-box;
-      }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <h2>Form 1</h2>
-          <form novalidate>
-            <p>
-              <label for="email1">Enter your email:</label>
-              <input  type="email" id="email1"  value="" minlength="8"  required />
-            </p>
-            <button>Submit</button>
-          </form>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Demo Disposable email blocker</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+        />
+        <style>
+            body {
+                background: #fafbfb;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <h1 class="mb-3">Testing</h1>
+                    <form novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-12">
+                                <label for="your-email" class="form-label"
+                                    >Your Email</label
+                                >
+                                <input
+                                    type="email"
+                                    class="form-control"
+                                    id="your-email"
+                                    name="your-email"
+                                    required
+                                />
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button
+                                            type="submit"
+                                            class="btn btn-primary w-100"
+                                        >
+                                            Send
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="col">
-          <h2>Form 2</h2>
-          <form novalidate>
-            <p>
-              <label for="email2">Enter your email:</label>
-              <input  type="email" id="email2" value="" minlength="8"  required />
-            </p>
-            <button>Submit</button>
-          </form>
-        </div>
-        <div class="col">
-          <h2>Form 3</h2>
-          <form novalidate>
-            <p>
-              <label for="email3">Enter your email:</label>
-              <input  type="email" id="email3" value=""  required />
-            </p>
-            <button>Submit</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </body>
+    </body>
 </html>
