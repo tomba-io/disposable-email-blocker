@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Manual testing</title>
+    <style>
+      body {
+        font: 1em sans-serif;
+        width: 200px;
+        padding: 0;
+        margin: 0 auto;
+      }
+
+      .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -15px;
+    }
+
+    .row::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    
+    .col {
+      float: left;
+      box-sizing: border-box;
+      padding: 0 15px;
+    }
+    
+      p * {
+        display: block;
+      }
+      input[type=email]{
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        border: 1px solid #333;
+        margin: 0;
+        font-family: inherit;
+        font-size: 90%;
+        box-sizing: border-box;
+      }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h2>Form 1</h2>
+          <form novalidate>
+            <p>
+              <label for="email1">Enter your email:</label>
+              <input  type="email" id="email1"  value="" minlength="8"  required />
+            </p>
+            <button>Submit</button>
+          </form>
+        </div>
+        <div class="col">
+          <h2>Form 2</h2>
+          <form novalidate>
+            <p>
+              <label for="email2">Enter your email:</label>
+              <input  type="email" id="email2" value="" minlength="8"  required />
+            </p>
+            <button>Submit</button>
+          </form>
+        </div>
+        <div class="col">
+          <h2>Form 3</h2>
+          <form novalidate>
+            <p>
+              <label for="email3">Enter your email:</label>
+              <input  type="email" id="email3" value=""  required />
+            </p>
+            <button>Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
