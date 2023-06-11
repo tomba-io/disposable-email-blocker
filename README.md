@@ -17,7 +17,7 @@ The Disposable email blocker provide :
 To use via a CDN include this in your HTML:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@tomba-io/disposable-email-blocker/dist/disposable-email-blocker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/disposable-email-blocker/disposable-email-blocker.min.js"></script>
 <script>
   new Disposable.Blocker();
 </script>
