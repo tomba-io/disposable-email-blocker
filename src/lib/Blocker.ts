@@ -88,6 +88,7 @@ export class Blocker {
     private onInput: EventListener = (event: InputEvent) => {
         if (event) {
             this.activeElement = document.activeElement;
+            this.activeElement.classList.add('has-error');
             this.email = this.activeElement.value;
             if (
                 this.activeElement.tagName === 'INPUT' &&
@@ -132,13 +133,13 @@ export class Blocker {
                                 this.emailError.className = 'error';
                                 if (data.disposable) {
                                     this.disposable = data.disposable;
-                                    this.activeElement.className = 'has-error';
+                                    this.activeElement.classList.add('has-error');
                                     this.emailError.innerHTML =
                                         this.errorMessage;
                                     this.emailError.className = 'error active';
                                 } else {
                                     this.disposable = data.disposable;
-                                    this.activeElement.className = '';
+                                    this.activeElement.classList.remove('has-error');
                                     this.emailError.innerHTML = '';
                                     this.emailError.className = 'error';
                                 }
@@ -148,7 +149,7 @@ export class Blocker {
                             });
                     } else {
                         this.disposable = false;
-                        this.activeElement.className = 'has-error';
+                        this.activeElement.classList.add('has-error');
                         this.emailError.className = 'error active';
                     }
                 }
