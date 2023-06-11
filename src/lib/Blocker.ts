@@ -34,6 +34,7 @@ export class Blocker {
     private init() {
         this.inputHandlers();
         this.submitHandlers();
+        this.mouseHandlers();
     }
 
     /**
@@ -47,6 +48,12 @@ export class Blocker {
      */
     private submitHandlers() {
         document.addEventListener('submit', this.onSubmit);
+    }
+    /**
+     * mouseHandlers : This handler will be executed if tagName is `INPUT` and type is `email` and time the cursor.
+     */
+    private mouseHandlers() {
+        document.addEventListener('mouseover', this.onMouse);
     }
     /**
      * addStyle : appending it to the <head> section
@@ -88,12 +95,12 @@ export class Blocker {
     private onInput: EventListener = (event: InputEvent) => {
         if (event) {
             this.activeElement = document.activeElement;
-            this.activeElement.classList.add('has-error');
             this.email = this.activeElement.value;
             if (
                 this.activeElement.tagName === 'INPUT' &&
                 this.activeElement.type === 'email'
             ) {
+                this.activeElement.classList.add('has-error');
                 this.activeElement.after(this.emailError);
                 if (this.activeElement.validity.valueMissing) {
                     this.emailError.innerHTML =
@@ -133,13 +140,17 @@ export class Blocker {
                                 this.emailError.className = 'error';
                                 if (data.disposable) {
                                     this.disposable = data.disposable;
-                                    this.activeElement.classList.add('has-error');
+                                    this.activeElement.classList.add(
+                                        'has-error'
+                                    );
                                     this.emailError.innerHTML =
                                         this.errorMessage;
                                     this.emailError.className = 'error active';
                                 } else {
                                     this.disposable = data.disposable;
-                                    this.activeElement.classList.remove('has-error');
+                                    this.activeElement.classList.remove(
+                                        'has-error'
+                                    );
                                     this.emailError.innerHTML = '';
                                     this.emailError.className = 'error';
                                 }
@@ -171,6 +182,33 @@ export class Blocker {
             }
         }
     };
+    /**
+     * onSelect: event listener for Selection
+     *
+     * @param event
+     */
+    private onMouse: EventListener = (event: SubmitEvent) => {
+        if (event) {
+            this.activeElement = document.activeElement;
+            if (
+                this.activeElement.tagName === 'INPUT' &&
+                this.activeElement.type === 'email'
+            ) {
+                if (this.disposable || !this.valid) {
+                    this.activeElement.classList.add('has-error');
+                    this.activeElement.after(this.emailError);
+                    this.emailError.innerHTML =
+                        'You need to enter an e-mail address.';
+                    this.activeElement.focus();
+                } else {
+                    this.activeElement.classList.remove('has-error');
+                    this.emailError.innerHTML = '';
+                    this.activeElement.focus();
+                }
+            }
+        }
+    };
+
     /**
      * EmailValidate: Basic Email Validate
      *
