@@ -122,7 +122,7 @@ export class Blocker {
 
     /**
      * showError: Adds the 'b_i_e' class to the active element,
-     * 
+     *
      *
      * @param message - The error message to display.
      */
@@ -238,11 +238,8 @@ export class Blocker {
      */
     private onMouse: EventListener = (event: MouseEvent) => {
         if (event) {
-            const check: any = document.activeElement
-            if (
-                check.tagName === 'INPUT' &&
-                check.type === 'email'
-            ) {
+            const check: any = document.activeElement;
+            if (check.tagName === 'INPUT' && check.type === 'email') {
                 this.activeElement = check;
                 if (!this.valid) {
                     this.showError('You need to enter an email address.');
@@ -266,11 +263,13 @@ export class Blocker {
         if (event) {
             const form: Element = event.target.closest('form');
             if (form) {
-                const emailInputs: any = form.querySelectorAll('input[type="email"]')
+                const emailInputs: any = form.querySelectorAll(
+                    'input[type="email"]'
+                );
                 if (emailInputs.length > 0) {
                     for (let i = 0; i < emailInputs.length; i++) {
                         if (emailInputs[i].type === 'email') {
-                            this.activeElement = emailInputs[i]
+                            this.activeElement = emailInputs[i];
                         }
                     }
                     this.onSubmit(event);
