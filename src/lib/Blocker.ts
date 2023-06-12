@@ -10,7 +10,7 @@ const defaults: DefaultOptions = {
     webmail: {
         message:
             'Unfortunately, you cannot create an account with this webmail email.',
-        block: false
+        block: false,
     },
     emailError: {
         className: 'b_e',
@@ -154,17 +154,16 @@ export class Blocker {
                                 this.emailError.className = '';
                                 if (data.disposable) {
                                     this.disposable = data.disposable;
-                                    this.activeElement.classList.add(
-                                        'b_i_e'
-                                    );
+                                    this.activeElement.classList.add('b_i_e');
                                     this.emailError.innerHTML =
                                         this.options.disposable.message;
                                     this.emailError.className = 'b_e';
-                                } else if (this.options.webmail.block && data.webmail) {
+                                } else if (
+                                    this.options.webmail.block &&
+                                    data.webmail
+                                ) {
                                     this.webmail = data.webmail;
-                                    this.activeElement.classList.add(
-                                        'b_i_e'
-                                    );
+                                    this.activeElement.classList.add('b_i_e');
                                     this.emailError.innerHTML =
                                         this.options.webmail.message;
                                     this.emailError.className = 'b_e';
@@ -196,7 +195,11 @@ export class Blocker {
      */
     private onSubmit: EventListener = (event: SubmitEvent) => {
         if (event) {
-            if (this.disposable || !this.valid || (this.valid && this.options.webmail.block && this.webmail)) {
+            if (
+                this.disposable ||
+                !this.valid ||
+                (this.valid && this.options.webmail.block && this.webmail)
+            ) {
                 event.preventDefault();
                 if (this.activeElement) {
                     this.activeElement.focus();
@@ -225,14 +228,12 @@ export class Blocker {
                 } else if (this.disposable) {
                     this.activeElement.classList.add('b_i_e');
                     this.activeElement.after(this.emailError);
-                    this.emailError.innerHTML =
-                        this.options.disposable.message;
+                    this.emailError.innerHTML = this.options.disposable.message;
                     this.activeElement.focus();
                 } else if (this.webmail) {
                     this.activeElement.classList.add('b_i_e');
                     this.activeElement.after(this.emailError);
-                    this.emailError.innerHTML =
-                        this.options.webmail.message;
+                    this.emailError.innerHTML = this.options.webmail.message;
                     this.activeElement.focus();
                 } else {
                     this.activeElement.classList.remove('b_i_e');
