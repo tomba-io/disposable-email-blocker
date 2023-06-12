@@ -5,6 +5,7 @@ import dts from 'rollup-plugin-dts';
 import { terser } from 'rollup-plugin-terser';
 import generatePackageJson from 'rollup-plugin-generate-package-json';
 import copy from 'rollup-plugin-copy';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 
 const outputDir = './dist/';
 const globalName = 'Disposable';
@@ -64,6 +65,7 @@ export default [
             // }
         ],
         plugins: [
+            nodeResolve(),
             generatePackageJson({
                 baseContents: (pkg) => {
                     pkg.scripts = {};
