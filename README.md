@@ -2,6 +2,8 @@
 
 Detect and Block if new account registrations are using disposable email services with javascript.
 
+[Demo](https://tomba-io.github.io/disposable-email-blocker/)
+
 The Disposable email blocker provide :
 
 -   Protect all HTML Forms.
