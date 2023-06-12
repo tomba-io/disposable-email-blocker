@@ -4,23 +4,104 @@ Detect and Block if new account registrations are using disposable email service
 
 The Disposable email blocker provide :
 
-- Detect invalid emails.
-- Detect invalid Domains.
-- Detect disposable emails.
-- We crawl the disposable email domains daily to keep safe from fake uses.
-- Easy to use
+-   Protect all HTML Forms.
+-   Detect invalid emails.
+-   Detect invalid Domains.
+-   Detect and Block disposable emails.
+-   We crawl the disposable email domains daily to keep safe from fake uses.
+-   Custom Error Message.
+-   Detect and Block webmail emails.
 
 ## How to use
 
 ### Use in browser
 
-To use via a CDN include this in your HTML:
+To use via a CDN include this in your HTML.
+
+Using jsDelivr CDN:
 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/disposable-email-blocker/disposable-email-blocker.min.js"></script>
 <script>
-  new Disposable.Blocker();
+    new Disposable.Blocker();
 </script>
+```
+
+Using unpkg CDN:
+
+```html
+<script src="https://unpkg.com/disposable-email-blocker/disposable-email-blocker.min.js"></script>
+<script>
+    new Disposable.Blocker();
+</script>
+```
+
+### Customizing Blocker
+
+The **_Blocker_** constructor parameter.
+
+Simple options
+
+```javascript
+const defaults = {
+    disposable: {
+        message: 'string',
+    },
+    webmail: {
+        message: 'string',
+        block: false,
+    },
+    emailError: {
+        className: 'string',
+        style: `string`,
+    },
+};
+new Disposable.Blocker(defaults);
+```
+
+- `disposable.message` disposable error message.
+- `webmail.message` webmail error message.
+- `webmail.block` block webmail emails.
+- `emailError.className` HTML tag class .
+- `emailError.style` css style.
+
+#### Custom disposable message
+
+To disposable message:
+
+```javascript
+const defaults = {
+    disposable: {
+        message:
+            'Abuses, strongly encourage you to stop using disposable email',
+    },
+};
+new Disposable.Blocker(defaults);
+```
+
+### Custom webmail message
+
+To webmail message:
+
+```javascript
+const defaults = {
+    webmail: {
+        message:
+            'Warning, You can create an account with this email address, but we strongly encourage you to use a professional email address',
+    },
+};
+new Disposable.Blocker(defaults);
+```
+
+### Block webmail emails
+
+```javascript
+const defaults = {
+    webmail: {
+        block: true,
+    },
+};
+new Disposable.Blocker(defaults);
 ```
 
 ## Development
@@ -68,7 +149,7 @@ The output is in the `/dist`.
 
 ## Contributors
 
-- [Mohamed Ben](https://github.com/benemohamed) - creator and maintainer
+-   [Mohamed Ben](https://github.com/benemohamed) - creator and maintainer
 
 ## License
 
