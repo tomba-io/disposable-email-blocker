@@ -1,29 +1,66 @@
-import { TombaStatusResponse } from './type';
+import { defu } from 'defu';
+import { DefaultOptions, Options, TombaStatusResponse } from './type';
 
+// Disposable email blocker default values
+const defaults: DefaultOptions = {
+    disposable: {
+        message:
+            'Unfortunately, you cannot create an account with this email address.',
+    },
+    webmail: {
+        message:
+            'Unfortunately, you cannot create an account with this webmail email.',
+        block: false
+    },
+    emailError: {
+        className: 'b_e',
+        style: `
+        /* This is the style of our input error */
+        .b_i_e {
+            border-color: #ea868f;
+            padding-right: calc(1.5em + 0.75rem);
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+          }
+          .b_i_e:focus {
+            border-color: #ea868f;
+            box-shadow: 0 0 0 0.25rem rgba(220,53,69,.25);
+          }
+          /* This is the style of our error messages */
+          .b_e {
+            width: 100%;
+            margin-top: 0.25rem;
+            font-size: .875em;
+            color: #ea868f;
+          }
+        `,
+    },
+};
 /**
  * Blocker - Block Fake Disposable Email Addresses
  */
 export class Blocker {
+    public options: DefaultOptions;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    public activeElement: any;
+    private activeElement: any;
     public email: string;
     public valid: boolean;
     public disposable: boolean;
-    public errorMessage: string;
-    public emailError: HTMLElement;
-    public blockUser: boolean;
+    public webmail: boolean;
+    private emailError: HTMLElement;
 
     /**
      * Blocker constructor
      */
-    constructor() {
+    constructor(options?: Options) {
+        // merge options
+        this.options = defu((options as DefaultOptions) || {}, defaults);
         this.init();
         this.addStyle();
         this.emailError = document.createElement('div');
-        this.emailError.className = 'error';
-        // this.emailError.ariaLive = "polite"
-        this.errorMessage =
-            "Unfortunately, You can't create an account with this email address.";
+        this.emailError.className = this.options.emailError.className;
         this.disposable = false;
         this.valid = false;
     }
@@ -60,30 +97,7 @@ export class Blocker {
      */
     private addStyle(): void {
         const style = document.createElement('style');
-        style.innerHTML = `
-    /* This is our style for the invalid fields */
-    .has-error {
-      border-color: #ea868f;
-      padding-right: calc(1.5em + 0.75rem);
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right calc(0.375em + 0.1875rem) center;
-      background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-    }
-    
-    .has-error:focus {
-      border-color: #ea868f;
-      box-shadow: 0 0 0 0.25rem rgba(220,53,69,.25);
-    }
-    
-    /* This is the style of our error messages */
-    .error {
-      width: 100%;
-      margin-top: 0.25rem;
-      font-size: .875em;
-      color: #ea868f;
-    }
-    `;
+        style.innerHTML = this.options.emailError.style;
         document.head.appendChild(style);
     }
 
@@ -100,14 +114,14 @@ export class Blocker {
                 this.activeElement.tagName === 'INPUT' &&
                 this.activeElement.type === 'email'
             ) {
-                this.activeElement.classList.add('has-error');
+                this.activeElement.classList.add('b_i_e');
                 this.activeElement.after(this.emailError);
                 if (this.activeElement.validity.valueMissing) {
                     this.emailError.innerHTML =
-                        'You need to enter an e-mail address.';
+                        'You need to enter an email address.';
                 } else if (this.activeElement.validity.typeMismatch) {
                     this.emailError.innerHTML =
-                        'Entered value needs to be an e-mail address.';
+                        'The entered value needs to be an email address.';
                 } else if (this.activeElement.validity.tooShort) {
                     this.emailError.innerHTML = `Email should be at least ${this.activeElement.minLength} characters; you entered ${this.email.length}.`;
                 } else {
@@ -137,22 +151,30 @@ export class Blocker {
                             .then((data: TombaStatusResponse) => {
                                 this.disposable = false;
                                 this.emailError.innerHTML = '';
-                                this.emailError.className = 'error';
+                                this.emailError.className = '';
                                 if (data.disposable) {
                                     this.disposable = data.disposable;
                                     this.activeElement.classList.add(
-                                        'has-error'
+                                        'b_i_e'
                                     );
                                     this.emailError.innerHTML =
-                                        this.errorMessage;
-                                    this.emailError.className = 'error active';
+                                        this.options.disposable.message;
+                                    this.emailError.className = 'b_e';
+                                } else if (this.options.webmail.block && data.webmail) {
+                                    this.webmail = data.webmail;
+                                    this.activeElement.classList.add(
+                                        'b_i_e'
+                                    );
+                                    this.emailError.innerHTML =
+                                        this.options.webmail.message;
+                                    this.emailError.className = 'b_e';
                                 } else {
                                     this.disposable = data.disposable;
                                     this.activeElement.classList.remove(
-                                        'has-error'
+                                        'b_i_e'
                                     );
                                     this.emailError.innerHTML = '';
-                                    this.emailError.className = 'error';
+                                    this.emailError.className = '';
                                 }
                             })
                             .catch((error) => {
@@ -160,8 +182,8 @@ export class Blocker {
                             });
                     } else {
                         this.disposable = false;
-                        this.activeElement.classList.add('has-error');
-                        this.emailError.className = 'error active';
+                        this.activeElement.classList.add('b_i_e');
+                        this.emailError.className = 'b_e';
                     }
                 }
             }
@@ -174,7 +196,7 @@ export class Blocker {
      */
     private onSubmit: EventListener = (event: SubmitEvent) => {
         if (event) {
-            if (this.disposable || !this.valid) {
+            if (this.disposable || !this.valid || (this.valid && this.options.webmail.block && this.webmail)) {
                 event.preventDefault();
                 if (this.activeElement) {
                     this.activeElement.focus();
@@ -194,14 +216,26 @@ export class Blocker {
                 this.activeElement.tagName === 'INPUT' &&
                 this.activeElement.type === 'email'
             ) {
-                if (this.disposable || !this.valid) {
-                    this.activeElement.classList.add('has-error');
+                if (!this.valid) {
+                    this.activeElement.classList.add('b_i_e');
                     this.activeElement.after(this.emailError);
                     this.emailError.innerHTML =
-                        'You need to enter an e-mail address.';
+                        'You need to enter an email address.';
+                    this.activeElement.focus();
+                } else if (this.disposable) {
+                    this.activeElement.classList.add('b_i_e');
+                    this.activeElement.after(this.emailError);
+                    this.emailError.innerHTML =
+                        this.options.disposable.message;
+                    this.activeElement.focus();
+                } else if (this.webmail) {
+                    this.activeElement.classList.add('b_i_e');
+                    this.activeElement.after(this.emailError);
+                    this.emailError.innerHTML =
+                        this.options.webmail.message;
                     this.activeElement.focus();
                 } else {
-                    this.activeElement.classList.remove('has-error');
+                    this.activeElement.classList.remove('b_i_e');
                     this.emailError.innerHTML = '';
                     this.activeElement.focus();
                 }
