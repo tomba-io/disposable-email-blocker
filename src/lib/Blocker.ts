@@ -59,7 +59,7 @@ export class Blocker {
         this.options = defu((options as DefaultOptions) || {}, defaults);
         this.init();
         this.addStyle();
-        this.emailError = document.createElement('div');
+        this.emailError = this.createErrorElement();
         this.emailError.className = this.options.emailError.className;
         this.disposable = false;
         this.valid = false;
@@ -70,6 +70,7 @@ export class Blocker {
      */
     private init() {
         this.inputHandlers();
+        this.clickHandlers();
         this.submitHandlers();
         this.mouseHandlers();
     }
@@ -79,6 +80,12 @@ export class Blocker {
      */
     private inputHandlers() {
         document.addEventListener('input', this.onInput);
+    }
+    /**
+     * clickHandlers : sets up the click handlers by attaching an 'click' event listener to the document,
+     */
+    private clickHandlers() {
+        document.addEventListener('click', this.onClick);
     }
     /**
      * inputHandlers : sets up the submit handlers by attaching an 'submit' event listener to the document,
@@ -102,11 +109,44 @@ export class Blocker {
     }
 
     /**
+     * createErrorElement: Creates a new HTMLDivElement.
+     * This element will be used to display error messages.
+     *
+     * @returns HTMLElement - The created HTMLDivElement.
+     */
+    private createErrorElement(): HTMLElement {
+        const element = document.createElement('div');
+        element.className = this.options.emailError.className;
+        return element;
+    }
+
+    /**
+     * showError: Adds the 'b_i_e' class to the active element,
+     * 
+     *
+     * @param message - The error message to display.
+     */
+    private showError(message: string): void {
+        this.activeElement.classList.add('b_i_e');
+        this.activeElement.after(this.emailError);
+        this.emailError.innerHTML = message;
+        this.emailError.className = 'b_e';
+    }
+
+    /**
+     * hideError: Removes the 'b_i_e' class from the active element.
+     */
+    private hideError(): void {
+        this.activeElement.classList.remove('b_i_e');
+        this.emailError.innerHTML = '';
+        this.emailError.className = '';
+    }
+    /**
      * onInput: event listener
      *
      * @param event
      */
-    private onInput: EventListener = (event: InputEvent) => {
+    private onInput: EventListener = async (event: InputEvent) => {
         if (event) {
             this.activeElement = document.activeElement;
             this.email = this.activeElement.value;
@@ -129,8 +169,7 @@ export class Blocker {
                         this.EmailValidate(this.email) &&
                         this.activeElement.validity.valid
                     ) {
-                        //  this.activeElement.validity.valid
-                        this.valid = this.EmailValidate(this.email);
+                        this.valid = true;
                         const url = `https://api.tomba.io/v1/domain-status?email=${this.email}`;
                         const options = {
                             method: 'GET',
@@ -138,51 +177,36 @@ export class Blocker {
                                 accept: 'application/json, text/plain, */*',
                             },
                         };
-                        fetch(url, options)
-                            .then((response) => {
-                                // Handle the response
-                                if (!response.ok) {
-                                    throw new Error(
-                                        'Api error, status = ' + response.status
-                                    );
-                                }
-                                return response.json();
-                            })
-                            .then((data: TombaStatusResponse) => {
-                                this.disposable = false;
-                                this.emailError.innerHTML = '';
-                                this.emailError.className = '';
-                                if (data.disposable) {
-                                    this.disposable = data.disposable;
-                                    this.activeElement.classList.add('b_i_e');
-                                    this.emailError.innerHTML =
-                                        this.options.disposable.message;
-                                    this.emailError.className = 'b_e';
-                                } else if (
-                                    this.options.webmail.block &&
-                                    data.webmail
-                                ) {
-                                    this.webmail = data.webmail;
-                                    this.activeElement.classList.add('b_i_e');
-                                    this.emailError.innerHTML =
-                                        this.options.webmail.message;
-                                    this.emailError.className = 'b_e';
-                                } else {
-                                    this.disposable = data.disposable;
-                                    this.activeElement.classList.remove(
-                                        'b_i_e'
-                                    );
-                                    this.emailError.innerHTML = '';
-                                    this.emailError.className = '';
-                                }
-                            })
-                            .catch((error) => {
-                                console.error('Error:', error);
-                            });
+                        try {
+                            const response = await fetch(url, options);
+                            if (!response.ok) {
+                                throw new Error(
+                                    'Api error, status = ' + response.status
+                                );
+                            }
+                            const data: TombaStatusResponse =
+                                await response.json();
+                            this.disposable = false;
+                            this.hideError();
+                            if (data.disposable) {
+                                this.disposable = data.disposable;
+                                this.showError(this.options.disposable.message);
+                            } else if (
+                                this.options.webmail.block &&
+                                data.webmail
+                            ) {
+                                this.webmail = data.webmail;
+                                this.showError(this.options.webmail.message);
+                            } else {
+                                this.disposable = data.disposable;
+                                this.hideError();
+                            }
+                        } catch (error) {
+                            console.error('Error:', error);
+                        }
                     } else {
                         this.disposable = false;
-                        this.activeElement.classList.add('b_i_e');
-                        this.emailError.className = 'b_e';
+                        this.showError('Invalid email address.');
                     }
                 }
             }
@@ -208,42 +232,52 @@ export class Blocker {
         }
     };
     /**
-     * onSelect: event listener for Selection
+     * onMouse: event listener for Mouse
      *
      * @param event
      */
-    private onMouse: EventListener = (event: SubmitEvent) => {
+    private onMouse: EventListener = (event: MouseEvent) => {
         if (event) {
-            this.activeElement = document.activeElement;
+            const check: any = document.activeElement
             if (
-                this.activeElement.tagName === 'INPUT' &&
-                this.activeElement.type === 'email'
+                check.tagName === 'INPUT' &&
+                check.type === 'email'
             ) {
+                this.activeElement = check;
                 if (!this.valid) {
-                    this.activeElement.classList.add('b_i_e');
-                    this.activeElement.after(this.emailError);
-                    this.emailError.innerHTML =
-                        'You need to enter an email address.';
-                    this.activeElement.focus();
+                    this.showError('You need to enter an email address.');
                 } else if (this.disposable) {
-                    this.activeElement.classList.add('b_i_e');
-                    this.activeElement.after(this.emailError);
-                    this.emailError.innerHTML = this.options.disposable.message;
-                    this.activeElement.focus();
+                    this.showError(this.options.disposable.message);
                 } else if (this.webmail) {
-                    this.activeElement.classList.add('b_i_e');
-                    this.activeElement.after(this.emailError);
-                    this.emailError.innerHTML = this.options.webmail.message;
-                    this.activeElement.focus();
+                    this.showError(this.options.webmail.message);
                 } else {
-                    this.activeElement.classList.remove('b_i_e');
-                    this.emailError.innerHTML = '';
-                    this.activeElement.focus();
+                    this.hideError();
                 }
             }
         }
     };
 
+    /**
+     * onClick: event listener for click
+     *
+     * @param event
+     */
+    private onClick: EventListener = (event: any) => {
+        if (event) {
+            const form: Element = event.target.closest('form');
+            if (form) {
+                const emailInputs: any = form.querySelectorAll('input[type="email"]')
+                if (emailInputs.length > 0) {
+                    for (let i = 0; i < emailInputs.length; i++) {
+                        if (emailInputs[i].type === 'email') {
+                            this.activeElement = emailInputs[i]
+                        }
+                    }
+                    this.onSubmit(event);
+                }
+            }
+        }
+    };
     /**
      * EmailValidate: Basic Email Validate
      *
