@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/tomba-io/disposable-email-blocker/compare/v1.1.0...v1.2.0) (2023-06-12)
+
+
+### Features
+
+* add click handlers ([9fb9a6a](https://github.com/tomba-io/disposable-email-blocker/commit/9fb9a6aace2fa0d41efaee378cd2926374d26d59))
+* add Demo ([8c95fd1](https://github.com/tomba-io/disposable-email-blocker/commit/8c95fd19861ed6a0a65813b2dd3892847e99edcb))
+
 ## [1.1.0](https://github.com/tomba-io/disposable-email-blocker/compare/v1.0.1...v1.1.0) (2023-06-12)
 
 
