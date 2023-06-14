@@ -23,19 +23,27 @@ To use via a CDN include this in your HTML.
 Using jsDelivr CDN:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/disposable-email-blocker@latest/disposable-email-blocker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/disposable-email-blocker/disposable-email-blocker.min.js"></script>
 <script>
     new Disposable.Blocker();
 </script>
+
+or
+
+<script src="https://cdn.jsdelivr.net/npm/disposable-email-blocker/disposable-email-blocker.min.js" block></script>
 ```
 
 Using unpkg CDN:
 
 ```html
-<script src="https://unpkg.com/disposable-email-blocker@latest/disposable-email-blocker.min.js"></script>
+<script src="https://unpkg.com/disposable-email-blocker/disposable-email-blocker.min.js"></script>
 <script>
     new Disposable.Blocker();
 </script>
+
+or
+
+<script src="https://cdn.jsdelivr.net/npm/disposable-email-blocker/disposable-email-blocker.min.js" block></script>
 ```
 
 ### Customizing Blocker

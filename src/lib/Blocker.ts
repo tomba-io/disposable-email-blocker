@@ -45,6 +45,7 @@ export class Blocker {
     public options: DefaultOptions;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private activeElement: any;
+    private activeForm: Element;
     public email: string;
     public valid: boolean;
     public disposable: boolean;
@@ -151,8 +152,10 @@ export class Blocker {
             this.activeElement = document.activeElement;
             this.email = this.activeElement.value;
             if (
-                this.activeElement.tagName === 'INPUT' &&
-                this.activeElement.type === 'email'
+                (this.activeElement.tagName === 'INPUT' &&
+                    this.activeElement.type === 'email') ||
+                (this.activeElement.tagName === 'INPUT' &&
+                    this.activeElement.name === 'email')
             ) {
                 this.activeElement.classList.add('b_i_e');
                 this.activeElement.after(this.emailError);
@@ -224,9 +227,21 @@ export class Blocker {
                 !this.valid ||
                 (this.valid && this.options.webmail.block && this.webmail)
             ) {
-                event.preventDefault();
-                if (this.activeElement) {
-                    this.activeElement.focus();
+                const form = (event.target as HTMLElement).closest('form');
+                if (form && this.activeForm == form) {
+                    const inputs: NodeListOf<HTMLInputElement> =
+                        form.querySelectorAll('input');
+                    if (inputs.length > 0) {
+                        for (let i = 0; i < inputs.length; i++) {
+                            if (
+                                inputs[i].type === 'email' ||
+                                inputs[i].name === 'email'
+                            ) {
+                                event.preventDefault();
+                                this.activeElement.focus();
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -238,8 +253,13 @@ export class Blocker {
      */
     private onMouse: EventListener = (event: MouseEvent) => {
         if (event) {
-            const check: any = document.activeElement;
-            if (check.tagName === 'INPUT' && check.type === 'email') {
+            const check = document.activeElement;
+            if (
+                (check.tagName === 'INPUT' &&
+                    (check as HTMLInputElement).type === 'email') ||
+                (check.tagName === 'INPUT' &&
+                    (check as HTMLInputElement).name === 'email')
+            ) {
                 this.activeElement = check;
                 if (!this.valid) {
                     this.showError('You need to enter an email address.');
@@ -259,16 +279,22 @@ export class Blocker {
      *
      * @param event
      */
-    private onClick: EventListener = (event: any) => {
+    private onClick: EventListener = (event: Event) => {
         if (event) {
-            const form: Element = event.target.closest('form');
+            const form: Element = (event.target as HTMLElement).closest('form');
             if (form) {
-                const emailInputs: any = form.querySelectorAll(
-                    'input[type="email"]'
-                );
+                this.activeForm = form;
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                const emailInputs: NodeListOf<HTMLInputElement> =
+                    form.querySelectorAll(
+                        'input[type="email"], input[name="email"]'
+                    );
                 if (emailInputs.length > 0) {
                     for (let i = 0; i < emailInputs.length; i++) {
-                        if (emailInputs[i].type === 'email') {
+                        if (
+                            emailInputs[i].type === 'email' ||
+                            emailInputs[i].name === 'email'
+                        ) {
                             this.activeElement = emailInputs[i];
                         }
                     }
@@ -294,4 +320,8 @@ export class Blocker {
         }
         return true;
     }
+}
+
+if (document.currentScript?.getAttribute('block') === '') {
+    new Blocker();
 }

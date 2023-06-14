@@ -32,7 +32,7 @@
   },
   "homepage": "https://tomba.io",
   "engines": {
-    "node": ">=16"
+    "node": ">=15"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^15.1.0",
