@@ -3,6 +3,7 @@ import { DefaultOptions, Options, TombaStatusResponse } from './type';
 
 // Disposable email blocker default values
 const defaults: DefaultOptions = {
+    apiUrl: 'https://api.tomba.io',
     disposable: {
         message:
             'Unfortunately, you cannot create an account with this email address.',
@@ -173,7 +174,7 @@ export class Blocker {
                         this.activeElement.validity.valid
                     ) {
                         this.valid = true;
-                        const url = `https://api.tomba.io/v1/domain-status?email=${this.email}`;
+                        const url = `${this.options.apiUrl}/v1/domain-status?email=${this.email}`;
                         const options = {
                             method: 'GET',
                             headers: {
@@ -298,7 +299,7 @@ export class Blocker {
                             this.activeElement = emailInputs[i];
                         }
                     }
-                    this.onSubmit(event);
+                    this.onSubmit;
                 }
             }
         }

@@ -5,11 +5,13 @@ export interface TombaStatusResponse {
 }
 
 export interface Options {
+    apiUrl?: string;
     disposable?: DisposableOptions;
     webmail?: WebmailOptions;
     emailError?: ErrorOptions;
 }
 export interface DefaultOptions {
+    apiUrl: string;
     disposable: DisposableOptions;
     webmail: WebmailOptions;
     emailError: ErrorOptions;

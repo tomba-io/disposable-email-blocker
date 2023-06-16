@@ -10,7 +10,7 @@ The Disposable email blocker provide :
 - 🛡️ Detects invalid email addresses and domains
 - 🛡️ Blocks disposable email services
 - 🛡️ Blocks webmail email services
-- 🛡️ Custom error messages for a seamless user experience
+- 🛡️ Custom error messages
 - 🛡️ Disposable data daily updates to stay ahead of fake users
 
 ## How to use
