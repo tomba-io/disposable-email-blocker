@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/tomba-io/disposable-email-blocker/compare/v1.2.1...v1.3.0) (2023-06-16)
+
+
+### Features
+
+* add Custom API URL [#6](https://github.com/tomba-io/disposable-email-blocker/issues/6) ([156a34e](https://github.com/tomba-io/disposable-email-blocker/commit/156a34e516644ea3dcefb6731ed02d5121f118e9))
+* add data list [#5](https://github.com/tomba-io/disposable-email-blocker/issues/5) ([de3b821](https://github.com/tomba-io/disposable-email-blocker/commit/de3b821cd9fc3454fe94e6c18869ef429a339f28))
+* add Event done ([f205b97](https://github.com/tomba-io/disposable-email-blocker/commit/f205b97d0397a91831d7957f337aad293f9c1b2b))
+
+
+### Bug Fixes
+
+* switch API call parameters to domain ([fb16fe9](https://github.com/tomba-io/disposable-email-blocker/commit/fb16fe94f34db511c8876e591e2bc7e5433744e0))
+
 ### [1.2.1](https://github.com/tomba-io/disposable-email-blocker/compare/v1.2.0...v1.2.1) (2023-06-14)
 
 ## [1.2.0](https://github.com/tomba-io/disposable-email-blocker/compare/v1.1.0...v1.2.0) (2023-06-12)
