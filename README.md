@@ -235,3 +235,12 @@ The output is in the `/dist`.
 ## License
 
 [![GitHub license](https://img.shields.io/github/license/tomba-io/disposable-email-blocker.svg)](https://github.com/tomba-io/disposable-email-blocker)
+
+
+<!-- Links: -->
+[npm-image]: https://img.shields.io/npm/v/disposable-email-blocker
+[npm-url]: https://npmjs.org/package/disposable-email-blocker
+[npm-bundle-size-image]: https://img.shields.io/bundlephobia/min/disposable-email-blocker
+
+[download-image]: https://img.shields.io/npm/dt/disposable-email-blocker
+[download-url]: https://npmjs.org/package/disposable-email-blocker
