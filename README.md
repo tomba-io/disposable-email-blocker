@@ -6,9 +6,10 @@ Detect and Block if new account registrations are using disposable email service
 
 The Disposable email blocker provide :
 
-- 🛡️ Protects all HTML forms and webmail emails
+- 🛡️ Protects all HTML forms.
 - 🛡️ Detects invalid email addresses and domains
 - 🛡️ Blocks disposable email services
+- 🛡️ Blocks webmail email services
 - 🛡️ Custom error messages for a seamless user experience
 - 🛡️ Disposable data daily updates to stay ahead of fake users
 
