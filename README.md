@@ -1,4 +1,4 @@
-# Disposable email blocker
+# 🛡️ Disposable email blocker
 
 Detect and Block if new account registrations are using disposable email services with javascript.
 
@@ -6,13 +6,11 @@ Detect and Block if new account registrations are using disposable email service
 
 The Disposable email blocker provide :
 
--   Protect all HTML Forms.
--   Detect invalid emails.
--   Detect invalid Domains.
--   Detect and Block disposable emails.
--   We crawl the disposable email domains daily to keep safe from fake uses.
--   Custom Error Message.
--   Detect and Block webmail emails.
+- 🛡️ Protects all HTML forms and webmail emails
+- 🛡️ Detects invalid email addresses and domains
+- 🛡️ Blocks disposable email services
+- 🛡️ Custom error messages for a seamless user experience
+- 🛡️ Disposable data daily updates to stay ahead of fake users
 
 ## How to use
 
