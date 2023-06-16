@@ -6,12 +6,12 @@ Detect and Block if new account registrations are using disposable email service
 
 The Disposable email blocker provide :
 
-- 🛡️ Protects all HTML forms.
-- 🛡️ Detects invalid email addresses and domains
-- 🛡️ Blocks disposable email services
-- 🛡️ Blocks webmail email services
-- 🛡️ Custom error messages
-- 🛡️ Disposable data daily updates to stay ahead of fake users
+-   🛡️ Protects all HTML forms.
+-   🛡️ Detects invalid email addresses and domains
+-   🛡️ Blocks disposable email services
+-   🛡️ Blocks webmail email services
+-   🛡️ Custom error messages
+-   🛡️ Disposable data daily updates to stay ahead of fake users
 
 ## How to use
 
@@ -29,7 +29,10 @@ Using jsDelivr CDN:
 
 or
 
-<script src="https://cdn.jsdelivr.net/npm/disposable-email-blocker/disposable-email-blocker.min.js" block></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/disposable-email-blocker/disposable-email-blocker.min.js"
+    block
+></script>
 ```
 
 Using unpkg CDN:
@@ -42,7 +45,10 @@ Using unpkg CDN:
 
 or
 
-<script src="https://cdn.jsdelivr.net/npm/disposable-email-blocker/disposable-email-blocker.min.js" block></script>
+<script
+    src="https://cdn.jsdelivr.net/npm/disposable-email-blocker/disposable-email-blocker.min.js"
+    block
+></script>
 ```
 
 ### Customizing Blocker
@@ -53,6 +59,8 @@ Simple options
 
 ```javascript
 const defaults = {
+    apiUrl: 'string',
+    data: 'TombaStatusResponse[]',
     disposable: {
         message: 'string',
     },
@@ -68,11 +76,13 @@ const defaults = {
 new Disposable.Blocker(defaults);
 ```
 
-- `disposable.message` disposable error message.
-- `webmail.message` webmail error message.
-- `webmail.block` block webmail emails.
-- `emailError.className` HTML tag class .
-- `emailError.style` css style.
+-   `apiUrl` API URL.
+-   `data` Data structure.
+-   `disposable.message` disposable error message.
+-   `webmail.message` webmail error message.
+-   `webmail.block` block webmail emails.
+-   `emailError.className` HTML tag class .
+-   `emailError.style` css style.
 
 #### Custom disposable message
 
@@ -98,6 +108,32 @@ const defaults = {
         message:
             'Warning, You can create an account with this email address, but we strongly encourage you to use a professional email address',
     },
+};
+new Disposable.Blocker(defaults);
+```
+
+### Custom API URL
+
+```javascript
+const defaults = {
+    apiUrl: 'string',
+};
+new Disposable.Blocker(defaults);
+```
+
+### Custom DATA
+
+This will stop API call
+
+```javascript
+const defaults = {
+    data: [
+        {
+            domain: 'coronafleet.com',
+            webmail: true,
+            disposable: false,
+        },
+    ],
 };
 new Disposable.Blocker(defaults);
 ```

@@ -38,6 +38,7 @@ const defaults: DefaultOptions = {
           }
         `,
     },
+    data: [],
 };
 /**
  * Blocker - Block Fake Disposable Email Addresses
@@ -171,44 +172,71 @@ export class Blocker {
                     this.emailError.innerHTML = `Email should be at least ${this.activeElement.minLength} characters; you entered ${this.email.length}.`;
                 } else {
                     if (
-                        this.EmailValidate(this.email) &&
+                        this.emailValidate(this.email) &&
                         this.activeElement.validity.valid
                     ) {
                         this.valid = true;
-                        this.domain = this.email.split('@')[1]
-                        const url = `${this.options.apiUrl}/v1/domain-status?domain=${this.domain}`;
-                        const options = {
-                            method: 'GET',
-                            headers: {
-                                accept: 'application/json, text/plain, */*',
-                            },
-                        };
-                        try {
-                            const response = await fetch(url, options);
-                            if (!response.ok) {
-                                throw new Error(
-                                    'Api error, status = ' + response.status
-                                );
+                        this.domain = this.email.split('@')[1];
+                        if (this.options.data.length > 0) {
+                            const result = this.checkDomain(this.domain);
+                            if (result) {
+                                if (result.disposable) {
+                                    this.disposable = result.disposable;
+                                    this.showError(
+                                        this.options.disposable.message
+                                    );
+                                } else if (
+                                    this.options.webmail.block &&
+                                    result.webmail
+                                ) {
+                                    this.webmail = result.webmail;
+                                    this.showError(
+                                        this.options.webmail.message
+                                    );
+                                } else {
+                                    this.disposable = result.disposable;
+                                    this.hideError();
+                                }
                             }
-                            const data: TombaStatusResponse =
-                                await response.json();
-                            this.disposable = false;
-                            this.hideError();
-                            if (data.disposable) {
-                                this.disposable = data.disposable;
-                                this.showError(this.options.disposable.message);
-                            } else if (
-                                this.options.webmail.block &&
-                                data.webmail
-                            ) {
-                                this.webmail = data.webmail;
-                                this.showError(this.options.webmail.message);
-                            } else {
-                                this.disposable = data.disposable;
+                        } else {
+                            const url = `${this.options.apiUrl}/v1/domain-status?domain=${this.domain}`;
+                            const options = {
+                                method: 'GET',
+                                headers: {
+                                    accept: 'application/json, text/plain, */*',
+                                },
+                            };
+                            try {
+                                const response = await fetch(url, options);
+                                if (!response.ok) {
+                                    throw new Error(
+                                        'Api error, status = ' + response.status
+                                    );
+                                }
+                                const data: TombaStatusResponse =
+                                    await response.json();
+                                this.disposable = false;
                                 this.hideError();
+                                if (data.disposable) {
+                                    this.disposable = data.disposable;
+                                    this.showError(
+                                        this.options.disposable.message
+                                    );
+                                } else if (
+                                    this.options.webmail.block &&
+                                    data.webmail
+                                ) {
+                                    this.webmail = data.webmail;
+                                    this.showError(
+                                        this.options.webmail.message
+                                    );
+                                } else {
+                                    this.disposable = data.disposable;
+                                    this.hideError();
+                                }
+                            } catch (error) {
+                                console.error('Error:', error);
                             }
-                        } catch (error) {
-                            console.error('Error:', error);
                         }
                     } else {
                         this.disposable = false;
@@ -307,12 +335,12 @@ export class Blocker {
         }
     };
     /**
-     * EmailValidate: Basic Email Validate
+     * emailValidate: Basic Email Validate
      *
      * @param email
      * @returns boolean
      */
-    private EmailValidate(email: string): boolean {
+    private emailValidate(email: string): boolean {
         /* eslint-disable no-useless-escape */
         if (
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
@@ -322,6 +350,18 @@ export class Blocker {
             return false;
         }
         return true;
+    }
+    /**
+     * checkDomain: Search for the matching domain within the options data
+     * @param domain
+     * @returns
+     */
+    checkDomain(domain: string): TombaStatusResponse {
+        const foundDomain = this.options.data.find(
+            (entry) => entry.domain === domain
+        );
+
+        return foundDomain;
     }
 }
 

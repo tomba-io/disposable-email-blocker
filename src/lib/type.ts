@@ -9,12 +9,14 @@ export interface Options {
     disposable?: DisposableOptions;
     webmail?: WebmailOptions;
     emailError?: ErrorOptions;
+    data?: TombaStatusResponse[];
 }
 export interface DefaultOptions {
     apiUrl: string;
     disposable: DisposableOptions;
     webmail: WebmailOptions;
     emailError: ErrorOptions;
+    data: TombaStatusResponse[];
 }
 
 export interface WebmailOptions {
