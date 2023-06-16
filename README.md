@@ -185,6 +185,17 @@ blocker.on('done', (e: any) => {
 });
 ```
 
+## Free Plugins / Forum / E-Commerce / CMS
+
+| Platform   | URL                                                                                                    | Status |
+| ---------- | ------------------------------------------------------------------------------------------------------ | ------ |
+| wordpress  | [wordpress-disposable-email-blocker](https://github.com/tomba-io/tomba-disposable)                     | ✅     |
+| MyBB       | [mybb-disposable-email-blocker](https://github.com/tomba-io/mybb-disposable-email-blocker)             | ✅     |
+| LiteCart   | [litecart-disposable-email-blocker](https://github.com/tomba-io/litecart-disposable-email-blocker)     | ✅     |
+| Cloudflare | [cloudflare-disposable-email-blocker](https://github.com/tomba-io/cloudflare-disposable-email-blocker) | ✅     |
+| Joomla     |                                                                                                        | 🚧     |
+| Drupal     |                                                                                                        | 🚧     |
+
 ## Development
 
 For development
@@ -223,9 +234,8 @@ The output is in the `/dist`.
 ## Browsers support
 
 | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/safari-ios/safari-ios_48x48.png" alt="iOS Safari" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>iOS Safari | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/samsung-internet/samsung-internet_48x48.png" alt="Samsung" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Samsung | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/opera/opera_48x48.png" alt="Opera" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Opera |
-| --------- | --------- | --------- | --------- | --------- | --------- | --------- |
-| IE11, Edge| last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions| last 2 versions
-
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| IE11, Edge                                                                                                                                                                                                      | last 2 versions                                                                                                                                                                                                   | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                                               | last 2 versions                                                                                                                                                                                                                     | last 2 versions                                                                                                                                                                                           |
 
 ## Contributing
 
@@ -243,11 +253,10 @@ The output is in the `/dist`.
 
 [![GitHub license](https://img.shields.io/github/license/tomba-io/disposable-email-blocker.svg)](https://github.com/tomba-io/disposable-email-blocker)
 
-
 <!-- Links: -->
+
 [npm-image]: https://img.shields.io/npm/v/disposable-email-blocker
 [npm-url]: https://npmjs.org/package/disposable-email-blocker
 [npm-bundle-size-image]: https://img.shields.io/bundlephobia/min/disposable-email-blocker
-
 [download-image]: https://img.shields.io/npm/dt/disposable-email-blocker
 [download-url]: https://npmjs.org/package/disposable-email-blocker
