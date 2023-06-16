@@ -1,19 +1,23 @@
-# 🛡️ Disposable email blocker
+# 🔒 Welcome to the Disposable Email Blocker! 🔥
 
-Detect and Block if new account registrations are using disposable email services with javascript.
+## Description 📝
+
+The Disposable Email Blocker is a powerful tool designed to detect and prevent the use of disposable email services for account registrations. 🚫💻
 
 [Demo](https://tomba-io.github.io/disposable-email-blocker/)
 
-The Disposable email blocker provide :
+## Features ✨
 
 -   🛡️ Protects all HTML forms.
 -   🛡️ Detects invalid email addresses and domains
 -   🛡️ Blocks disposable email services
 -   🛡️ Blocks webmail email services
 -   🛡️ Custom error messages
--   🛡️ Disposable data daily updates to stay ahead of fake users
+-   🛡️ Our system stays ahead of the game by continuously updating the database of disposable email providers to effectively identify new ones.
 
-## How to use
+## How to use 🚀
+
+To get started, follow these simple steps:
 
 ### Install
 
@@ -27,7 +31,7 @@ $ npm install disposable-email-blocker --save
 $ yarn add disposable-email-blocker
 ```
 
-### Usage
+### Usage 🖥️
 
 ```javascript
 import { Blocker } from 'disposable-email-blocker';
@@ -48,9 +52,10 @@ Using jsDelivr CDN:
 <script>
     new Disposable.Blocker();
 </script>
-
+```
 or
 
+```html
 <script
     src="https://cdn.jsdelivr.net/npm/disposable-email-blocker/disposable-email-blocker.min.js"
     block
@@ -64,9 +69,11 @@ Using unpkg CDN:
 <script>
     new Disposable.Blocker();
 </script>
+```
 
 or
 
+```html
 <script
     src="https://cdn.jsdelivr.net/npm/disposable-email-blocker/disposable-email-blocker.min.js"
     block
@@ -99,7 +106,7 @@ new Disposable.Blocker(defaults);
 ```
 
 -   `apiUrl` API URL.
--   `data` Data structure.
+-   `data` Custom Data.
 -   `disposable.message` disposable error message.
 -   `webmail.message` webmail error message.
 -   `webmail.block` block webmail emails.
@@ -143,7 +150,7 @@ const defaults = {
 new Disposable.Blocker(defaults);
 ```
 
-### Custom DATA
+### Custom Data
 
 This will stop API call
 
@@ -178,25 +185,28 @@ Available Event name `done` the Content is revealed on `onInput`
 
 ```javascript
 const blocker = new Blocker();
-blocker.on('done', (e: any) => {
+blocker.on('done', (e) => {
     if (e.detail.disposable) {
         alert(blocker.options.disposable.message);
     }
 });
 ```
 
-## Free Plugins / Forum / E-Commerce / CMS
+## Free Plugins / Forum / E-Commerce / CMS ♾️
 
 | Platform   | URL                                                                                                    | Status |
 | ---------- | ------------------------------------------------------------------------------------------------------ | ------ |
-| wordpress  | [wordpress-disposable-email-blocker](https://github.com/tomba-io/tomba-disposable)                     | ✅     |
-| MyBB       | [mybb-disposable-email-blocker](https://github.com/tomba-io/mybb-disposable-email-blocker)             | ✅     |
-| LiteCart   | [litecart-disposable-email-blocker](https://github.com/tomba-io/litecart-disposable-email-blocker)     | ✅     |
-| Cloudflare | [cloudflare-disposable-email-blocker](https://github.com/tomba-io/cloudflare-disposable-email-blocker) | ✅     |
-| Joomla     |                                                                                                        | 🚧     |
-| Drupal     |                                                                                                        | 🚧     |
+| wordpress  | [wordpress-disposable-email-blocker](https://github.com/tomba-io/tomba-disposable)                     | ✅      |
+| MyBB       | [mybb-disposable-email-blocker](https://github.com/tomba-io/mybb-disposable-email-blocker)             | ✅      |
+| LiteCart   | [litecart-disposable-email-blocker](https://github.com/tomba-io/litecart-disposable-email-blocker)     | ✅      |
+| Cloudflare | [cloudflare-disposable-email-blocker](https://github.com/tomba-io/cloudflare-disposable-email-blocker) | ✅      |
+| Vue 2      | [disposable-email-blocker-vue-2](https://github.com/tomba-io/disposable-email-blocker-vue-2)           | ✅      |
+| Vue 3      | [disposable-email-blocker-vue-3](https://github.com/tomba-io/disposable-email-blocker-vue-3)           | 🚧      |
+| React      | [disposable-email-blocker-react](https://github.com/tomba-io/disposable-email-blocker-react)           | 🚧      |
+| Joomla     |                                                                                                        | 🚧      |
+| Drupal     |                                                                                                        | 🚧      |
 
-## Development
+## Development 👨‍💻
 
 For development
 
