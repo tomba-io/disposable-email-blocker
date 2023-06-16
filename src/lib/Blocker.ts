@@ -48,6 +48,7 @@ export class Blocker {
     private activeElement: any;
     private activeForm: Element;
     public email: string;
+    public domain: string;
     public valid: boolean;
     public disposable: boolean;
     public webmail: boolean;
@@ -174,7 +175,8 @@ export class Blocker {
                         this.activeElement.validity.valid
                     ) {
                         this.valid = true;
-                        const url = `${this.options.apiUrl}/v1/domain-status?email=${this.email}`;
+                        this.domain = this.email.split('@')[1]
+                        const url = `${this.options.apiUrl}/v1/domain-status?domain=${this.domain}`;
                         const options = {
                             method: 'GET',
                             headers: {
