@@ -149,6 +149,20 @@ const defaults = {
 new Disposable.Blocker(defaults);
 ```
 
+### Event
+
+use the `on()` API method.
+Available Event name `done` the Content is revealed on `onInput`
+
+```javascript
+const blocker = new Blocker();
+blocker.on('done', (e: any) => {
+    if (e.detail.disposable) {
+        alert(blocker.options.disposable.message);
+    }
+});
+```
+
 ## Development
 
 For development

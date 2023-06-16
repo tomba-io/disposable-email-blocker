@@ -45,7 +45,6 @@ const defaults: DefaultOptions = {
  */
 export class Blocker {
     public options: DefaultOptions;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private activeElement: any;
     private activeForm: Element;
     public email: string;
@@ -66,7 +65,9 @@ export class Blocker {
         this.emailError = this.createErrorElement();
         this.emailError.className = this.options.emailError.className;
         this.disposable = false;
+        this.webmail = false;
         this.valid = false;
+        this.domain = '';
     }
 
     /**
@@ -244,6 +245,11 @@ export class Blocker {
                     }
                 }
             }
+            this.customEvent('done', {
+                domain: this.domain,
+                disposable: this.disposable,
+                webmail: this.webmail,
+            });
         }
     };
     /**
@@ -315,7 +321,6 @@ export class Blocker {
             const form: Element = (event.target as HTMLElement).closest('form');
             if (form) {
                 this.activeForm = form;
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 const emailInputs: NodeListOf<HTMLInputElement> =
                     form.querySelectorAll(
                         'input[type="email"], input[name="email"]'
@@ -341,7 +346,6 @@ export class Blocker {
      * @returns boolean
      */
     private emailValidate(email: string): boolean {
-        /* eslint-disable no-useless-escape */
         if (
             /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
                 email
@@ -362,6 +366,24 @@ export class Blocker {
         );
 
         return foundDomain;
+    }
+
+    /**
+     * customEvent: Method to dispatch custom events
+     * @param eventName
+     * @param eventData
+     */
+    customEvent(eventName: string, eventData: TombaStatusResponse): void {
+        const customEvent = new CustomEvent(eventName, { detail: eventData });
+        document.dispatchEvent(customEvent);
+    }
+    /**
+     * on: Method to listen for custom events
+     * @param eventName
+     * @param callback
+     */
+    on(eventName: string, callback: any) {
+        document.addEventListener(eventName, callback);
     }
 }
 
