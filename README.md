@@ -15,6 +15,28 @@ The Disposable email blocker provide :
 
 ## How to use
 
+### Install
+
+[![NPM version][npm-image]][npm-url]
+[![NPM bundle size][npm-bundle-size-image]][npm-url]
+[![npm download][download-image]][download-url]
+
+```shell
+$ npm install disposable-email-blocker --save
+# or
+$ yarn add disposable-email-blocker
+```
+
+### Usage
+
+```javascript
+import { Blocker } from 'disposable-email-blocker';
+```
+
+```javascript
+new Blocker();
+```
+
 ### Use in browser
 
 To use via a CDN include this in your HTML.
