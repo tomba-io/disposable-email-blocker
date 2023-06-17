@@ -6,6 +6,7 @@
   "main": "disposable-email-blocker.min.js",
   "module": "disposable-email-blocker.esm.js",
   "browser": "disposable-email-blocker.umd.js",
+  "types": "disposable-email-blocker.d.ts",
   "scripts": {
     "lint": "eslint src",
     "start": "rollup -c rollup/rollup.config.dev.js -w",
