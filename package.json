@@ -10,7 +10,7 @@
   "scripts": {
     "lint": "eslint src",
     "start": "rollup -c rollup/rollup.config.dev.js -w",
-    "build": "yarn lint && rollup -c rollup/rollup.config.prod.js",
+    "build": "npm run lint && rollup -c rollup/rollup.config.prod.js",
     "prettier": "prettier \"{src,test,rollup}/**/*.{ts,js}\" --write",
     "version": "standard-version && git push --follow-tags origin master",
     "deploy": "gh-pages -d demo",

@@ -1,0 +1,26 @@
+name: Release npm package
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@master
+      - name: Set up Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: 16
+          registry-url: 'https://registry.npmjs.org'
+      - name: installs packages
+        run: npm install
+      - name: Build image
+        run: npm run build
+      - name: Publish the package
+        run: npm publish ./dist
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
