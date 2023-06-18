@@ -203,7 +203,7 @@ blocker.on('done', (e) => {
 | Vue 2      | [disposable-email-blocker-vue-2](https://github.com/tomba-io/disposable-email-blocker-vue-2)           | ✅      |
 | Vue 3      | [disposable-email-blocker-vue-3](https://github.com/tomba-io/disposable-email-blocker-vue-3)           | 🚧      |
 | React      | [disposable-email-blocker-react](https://github.com/tomba-io/disposable-email-blocker-react)           | 🚧      |
-| Joomla     |                                                                                                        | 🚧      |
+| Joomla     | [joomla-disposable-email-blocker](https://github.com/tomba-io/joomla-disposable-email-blocker)         | ✅      |
 | Drupal     |                                                                                                        | 🚧      |
 
 ## Development 👨‍💻
